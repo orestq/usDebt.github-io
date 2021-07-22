@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.table-debt {
+    background-image: url(DCXS-21-1.jpg);
+    height: 100vh;
+    /* background-image: url(/wooden/images/bg.jpg); */
+    background-repeat: no-repeat;
+    position: relative;
+    /* background-position: center; */
+}
+
+#debt1 {
+    position: absolute;
+    font-size: 70px;
+    top: 330px;
+    left: 100px;
+    color: 'black'
+}
+
+#debt2 {
+    position: absolute;
+    font-size: 60px;
+    top: 470px;
+    left: 140px;
+    color: 'black';
+}
+
+#debt3 {
+    position: absolute;
+}
+
+#layer1 {
+    position: absolute;
+    top: 138px;
+    left: 29px;
+}
+
+#layer2 {
+    position: absolute;
+    top: 263px;
+    left: 53px;
+    font-size: 50px;
+}
+
+#layer3 {
+    position: absolute;
+    top: 263px;
+    left: 506px;
+    font-size: 50px;
+}
+
+#layer4 {
+    position: absolute;
+    top: 250px;
+}
+
+#layer7 {
+    position: absolute;
+    left: 496px;
+    bottom: 57px;
+}
+
+#layer8 {
+    position: absolute;
+    left: 438px;
+    bottom: -69px;
+}
+
+#layer9 {
+    position: absolute;
+    left: 722px;
+    bottom: 58px;
+}
+
+#layer10 {
+    position: absolute;
+    left: 496px;
+    bottom: 262px;
+}
+
+#layer11 {
+    position: absolute;
+    left: 496px;
+    bottom: 262px;
+}
+
+#layer13 {
+    position: absolute;
+    top: 340px;
+    font-size: 50px;
+    left: 1220px;
+}
+
+#layer14 {
+    position: absolute;
+    top: 460px;
+    font-size: 50px;
+    left: 1282px;
+}
+
+#layer15 {
+    position: absolute;
+    top: 583px;
+    font-size: 50px;
+    left: 1308px;
+}
