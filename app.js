@@ -38,11 +38,11 @@ const data1 = [{
     },
     {
         id: 9,
-        persent: 100,
+        rate: 100,
     },
     {
         id: 10,
-        persent: 100,
+        rate: 100,
 
     },
 
