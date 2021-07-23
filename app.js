@@ -270,7 +270,6 @@ var blockHidden = document.querySelector('.block');
 
 function showBlock() {
     myModal.classList.add('b-show');
-
 }
 
 btnComment.addEventListener('click', showBlock);
@@ -290,13 +289,11 @@ function setColor() {
 setInterval(setColor, 800);
 
 function showModal() {
-    myModal.classList.add('show');
+    myModal.classList.add('b-show');
     myModal.classList.remove('hide');
-
 }
 
 function closeModal() {
-    myModal.classList.remove('show');
     myModal.classList.add('hide');
     myModal.classList.remove('b-show');
 };
@@ -342,8 +339,8 @@ function validFieldsAuth() {
 }
 
 function reset() {
-    myForm.classList.remove('show');
-    myModal.classList.remove('show');
+    myForm.classList.remove('b-show');
+    myModal.classList.remove('b-show');
     incorrect.hidden = true;
     fieldEmpty.hidden = true;
     resetTextarea();
@@ -356,7 +353,6 @@ function resetTextarea() {
     document.getElementById('password').value = '';
 }
 
-
 btnConfirm.addEventListener('click', validFieldsAuth);
 
 btnComment.addEventListener('click', showModal);
@@ -364,5 +360,3 @@ btnClose.addEventListener('click', closeModal);
 
 btnCloseForm.addEventListener('click', closeForm)
 sendComment.addEventListener('click', validField);
-
-// btnConfirm.addEventListener('submit', validFieldsAuth)
