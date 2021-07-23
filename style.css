@@ -159,7 +159,9 @@ body {
   position: absolute;
   top: 75px;
 }
-
+#inputComment {
+  width: 100%;
+}
 .changeColor {
   fill:'black';
   height: 120px;
