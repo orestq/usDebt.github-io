@@ -263,10 +263,6 @@ const fieldEmpty = document.querySelector('.field-empty');
 const incorrect = document.querySelector('.incorrect');
 
 const svgShape = document.getElementById('Shape');
-const shape = document.getElementById
-
-var btn = document.querySelector('.btn');
-var blockHidden = document.querySelector('.block');
 
 function showBlock() {
     myModal.classList.add('b-show');
