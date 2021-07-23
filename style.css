@@ -1,109 +1,190 @@
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .table-debt {
-    background-image: url(DCXS-21-1.jpg);
-    height: 100vh;
-    /* background-image: url(/wooden/images/bg.jpg); */
-    background-repeat: no-repeat;
-    position: relative;
-    /* background-position: center; */
+  background-image: url(images/DCXS-21-1.jpg);
+  height: 2300px;
+  width: 3000px;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 #debt1 {
-    position: absolute;
-    font-size: 70px;
-    top: 330px;
-    left: 100px;
-    color: 'black'
+  position: absolute;
+  font-size: 70px;
+  top: 320px;
+  left: 100px;
+  color: "black";
 }
 
 #debt2 {
-    position: absolute;
-    font-size: 60px;
-    top: 470px;
-    left: 140px;
-    color: 'black';
+  position: absolute;
+  font-size: 60px;
+  top: 480px;
+  left: 140px;
+  color: "black";
 }
 
 #debt3 {
-    position: absolute;
+  position: absolute;
 }
 
 #layer1 {
-    position: absolute;
-    top: 138px;
-    left: 29px;
+  position: absolute;
+  top: 138px;
+  left: 29px;
 }
 
 #layer2 {
-    position: absolute;
-    top: 263px;
-    left: 53px;
-    font-size: 50px;
+  position: absolute;
+  top: 263px;
+  left: 53px;
+  font-size: 50px;
 }
 
 #layer3 {
-    position: absolute;
-    top: 263px;
-    left: 506px;
-    font-size: 50px;
+  position: absolute;
+  top: 263px;
+  left: 506px;
+  font-size: 50px;
 }
 
 #layer4 {
-    position: absolute;
-    top: 250px;
+  position: absolute;
+  top: 250px;
 }
 
 #layer7 {
-    position: absolute;
-    left: 496px;
-    bottom: 57px;
+  position: absolute;
+  left: 496px;
+  bottom: 57px;
 }
 
 #layer8 {
-    position: absolute;
-    left: 438px;
-    bottom: -69px;
+  position: absolute;
+  left: 438px;
+  bottom: -69px;
 }
 
 #layer9 {
-    position: absolute;
-    left: 722px;
-    bottom: 58px;
+  position: absolute;
+  left: 722px;
+  bottom: 58px;
 }
 
 #layer10 {
-    position: absolute;
-    left: 496px;
-    bottom: 262px;
+  position: absolute;
+  left: 496px;
+  bottom: 252px;
 }
 
 #layer11 {
-    position: absolute;
-    left: 496px;
-    bottom: 262px;
+  position: absolute;
+  left: 496px;
+  bottom: 252px;
 }
 
 #layer13 {
-    position: absolute;
-    top: 340px;
-    font-size: 50px;
-    left: 1220px;
+  position: absolute;
+  top: 330px;
+  font-size: 50px;
+  left: 1220px;
 }
 
 #layer14 {
-    position: absolute;
-    top: 460px;
-    font-size: 50px;
-    left: 1282px;
+  position: absolute;
+  top: 460px;
+  font-size: 50px;
+  left: 1282px;
 }
 
 #layer15 {
-    position: absolute;
-    top: 583px;
-    font-size: 50px;
-    left: 1308px;
+  position: absolute;
+  top: 583px;
+  font-size: 50px;
+  left: 1308px;
+}
+
+.btn-arrow {
+  position: absolute;
+  left: 610px;
+  top: 20px;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.btn-arrow img {
+  width: 100px;
+}
+
+.clickable-zone {
+  width: 985px;
+  height: 240px;
+  position: absolute;
+  left: 952px;
+  top: 26px;
+  cursor: pointer;
+}
+
+.incorrect {
+  color: red;
+}
+
+.field-empty {
+  color: red;
+}
+
+.body-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.modal {
+  position: relative;
+  background: none !important;
+}
+
+.form-auth {
+  position: absolute;
+  top: 75px;
+}
+
+.changeColor {
+  fill:'black';
+  height: 120px;
+  width: 120px;
+  -webkit-transition: width 2s, height 2s, background-color 2s, -webkit-transform 2s;
+  transition: width 2s, height 2s, background-color 2s, transform 2s;
+  transition-duration: .2s;
+}
+.color{
+  color: rgba(216, 59, 59, 0.925);
+}
+.block {
+  display: none;
+}
+
+.b-show {
+  display: block;
+  animation: showBlock .5s linear forwards;
+}
+
+@keyframes showBlock {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

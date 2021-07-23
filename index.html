@@ -5,21 +5,99 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+
     <script src="app.js" defer></script>
     <title>Document</title>
 </head>
 
 <body>
+
     <div id="wrapper">
         <div class=table-debt>
+            <div class="btn-arrow">Click Here<svg height="100" viewBox="0 0 58 42" width="100"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="right-arrow" fill="none">
+                        <path id="Shape"
+                            d="m57.24 20.28-21.24-20.28-4.51 2.71c-.307047.17675287-.4944939.50574124-.49.86v8.79l-26-2.36-4.51 2.71c-.30704704.1767529-.4944939.5057412-.49.86v14.86c-.0044939.3542588.18295296.6832471.49.86l4.51 2.71 26-2.36v8.79c-.0044939.3542588.182953.6832471.49.86l4.51 2.71 21.24-20.28c.1955519-.1884832.3060259-.4484002.3060259-.72s-.110474-.5315168-.3060259-.72z"
+                            fill="#26b99a" />
+                        <g fill="#14a085">
+                            <path id="Shape"
+                                d="m36.0000269 0-.0000269 11.72c.0020715.2810504-.115654.5496813-.3237065.7386464s-.486738.2803774-.7662935.2513536l-3.91-.35v-8.79c-.0044939-.35425876.182953-.68324713.49-.86z" />
+                            <path id="Shape"
+                                d="m36 30.28.0000269 11.72-4.5100269-2.71c-.307047-.1767529-.4944939-.5057412-.49-.86v-8.79l3.91-.35c.2795555-.0290238.558241.0623885.7662935.2513536s.325778.457596.3237065.7386464z" />
+                            <path id="Shape"
+                                d="m5 10v22l-4.51-2.71c-.30704704-.1767529-.4944939-.5057412-.49-.86v-14.86c-.0044939-.3542588.18295296-.6832471.49-.86z" />
+                        </g>
+                        <path id="Shape"
+                            d="m34 17.926c-1.344 0 4.665.173-16.037-.593-.550837-.0200821-.9815556-.4821095-.963-1.033.0072219-.2660223.1212396-.5179352.3163379-.6989232s.4548466-.2758088.7206621-.2630768l16 .592c.5522847.0102173.9917173.4662153.9815 1.0185s-.4662153.9917173-1.0185.9815z"
+                            fill="#81ccb8" />
+                        <path id="Shape"
+                            d="m14 17.185c-.4 0 1.414.053-5.037-.185-.26527883-.0096335-.51584221-.124347-.69647767-.3188631-.18063545-.194516-.27651898-.4528715-.26652233-.7181369.00474427-.2669445.11797602-.5204501.31361535-.7021286.19563933-.1816786.4568195-.275867.72338465-.2608714l5 .186c.3572656.0066094.6838665.2033157.8567754.5160215s.1658567.6939036-.0185 1c-.1843567.3060963-.5180098.4905879-.8752754.4839785z"
+                            fill="#81ccb8" />
+                    </g>
+                </svg></div>
+            <div class="clickable-zone" id="btn-comment"></div>
             <div id="debt1"></div>
             <div id="debt2"></div>
             <div id="debt3"></div>
+
+            <div class="modal hide" tabindex="-1" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Send message</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="closeModal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="field-empty" hidden>The field is empty</div>
+                            <textarea name="" cols="53" rows="5" id="inputComment" placeholder=""></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="sendComment">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal form-auth hide" tabindex="-1" id="myForm">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Please confirm information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="closeForm"></button>
+                        </div>
+                        <div class="modal-body body-form">
+                            <div class="incorrect" hidden>Password or login is not correctly</div>
+                            <form action="" id="formAuth" class="body-form">
+                                <label for="email">Email Address</label>
+                                <input class="mb-2" stype="email" id="email" name="email"
+                                    placeholder="email@address.com" required>
+
+                                <label for="password">Password</label>
+                                <input class="mb-2" type="text" id="password" name="password" placeholder="password"
+                                    required>
+                                <button type="button" class="btn btn-primary w-25 align-center"
+                                    id="btnConfirm">Confirm</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 
