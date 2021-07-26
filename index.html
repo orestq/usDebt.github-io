@@ -39,38 +39,55 @@
                             fill="#81ccb8" />
                     </g>
                 </svg></div>
-            <div class="clickable-zone" id="btn-comment"></div>
-            <div id="debt1"></div>
+            <div class="clickable-zone add-btn" onclick="showInputBox(0)"></div>
+
+            <div id="debt1">
+                <div class="line-1 ">
+                    <div id="natDebt">24222000000000000</div>
+                    <div id="perCitizen">30000000</div>
+                    <div id="perTaxpayer">100000000</div>
+                </div>
+                <div class="line-2">
+                    <div id="usFederal">24222000000000000</div>
+                    <div id="usFederalBudget">30000000</div>
+                </div>
+                <div class="line-3">
+                    <div id="usFederalActual">24222000000000000</div>
+                    <div id="usFederalBudgetActual">30000000</div>
+                </div>
+            </div>
             <div id="debt2"></div>
             <div id="debt3"></div>
 
-            <div class="modal hide" tabindex="-1" id="myModal">
+            <div class="modal modal-comment hide" tabindex="-1" id="myForm">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Send message</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                id="closeModal"></button>
+                                id="closeForm"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="field-empty" hidden>The field is empty</div>
-                            <textarea name="" cols="53" rows="5" id="inputComment" placeholder=""></textarea>
+                        <div class="modal-body body-form">
+                            <div class="field-empty" hidden>The field is empty.</div>
+                            <div class="add-item" contenteditable="true" id="text-comment">
+
+                            </div>
+                            <div class="add-btn solid mt-2" onclick="hideInputBox(0)">
+                                <span class="btn-send">Send</span>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="sendComment">Send</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
 
-
-            <div class="modal form-auth hide" tabindex="-1" id="myForm">
+            <div class="modal form-auth hide" tabindex="-1" id="formAuth">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Please confirm information</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                id="closeForm"></button>
+                                id="closeAuth"></button>
                         </div>
                         <div class="modal-body body-form">
                             <div class="incorrect" hidden>Password or login is not correctly</div>
@@ -82,18 +99,33 @@
                                 <label for="password">Password</label>
                                 <input class="mb-2" type="text" id="password" name="password" placeholder="password"
                                     required>
-                                <button type="button" class="btn btn-primary w-25 align-center"
-                                    id="btnConfirm">Confirm</button>
+                                <button type="button" class="btn btn-primary w-25 align-center" id="btnConfirm"
+                                    onclick="validFieldsAuth(0)">Confirm</button>
                             </form>
                         </div>
 
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+    </div>
+    <div class="drag-container">
+        <ul class="drag-list">
 
+            <!-- Backlog Column -->
+            <li class="drag-column comment-column">
+                <span class="header">
+                    <h1>Comment</h1>
+                </span>
+                <!-- Backlog Content -->
+                <div id="backlog-content" class="custom-scroll">
+                    <ul class="drag-item-list" id="comment-list">
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

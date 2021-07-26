@@ -1,316 +1,224 @@
-const data1 = [{
-    id: 1,
-    usDebt: 300000000000,
-    usDebt1: 10000,
-},
-{
-    id: 2,
-    usDebt: 210000000000,
-    usDebt1: 16000000000,
-},
-{
-    id: 3,
-    usDebt: 120000000000,
-    usDebt1: 3000,
-},
-{
-    id: 4,
-    usDebt: 190000000000,
-    usDebt1: 130000000000,
-},
-{
-    id: 5,
-    usDebt: 30000000000,
-    usDebt1: 660000000,
-},
-{
-    id: 6,
-    usDebt: 20000000000,
-    usDebt1: 6000,
-},
-{
-    id: 7,
-    usDebt: 22000000000,
-},
-{
-    id: 8,
-    usDebt: 10000000000,
-},
-{
-    id: 9,
-    rate: 100,
-},
-{
-    id: 10,
-    rate: 100,
+(function () {
+    const clock = new debtClock
+        (
+            "natDebt", "perCitizen", "perTaxpayer",
+            "usFederal", "usFederalBudget",
+            "usFederalActual", "usFederalBudgetActual",
+            30
+        )
 
-},
+})();
 
-];
+function debtClock
+    (
+        totalDebt, perCitizen, perTaxpayer,
+        usFederal, usFedBudget,
+        usFederalActual, usFederalBudgetActual,
+        fps
+    ) {
+    this.TOTAL_DEBT = totalDebt;
+    this.PER_CITIZEN = perCitizen;
+    this.PER_TAXPAYER = perTaxpayer;
+    this.FPS_DELAY = fps ? 2000 / fps : 100;
+    this.TOTAL_DECIMALS = 0;
+    this.CITIZEN_DECIMALS = 3;
+    this.TAXPAYER_DECIMALS = 3;
+    this.START_DATE = new Date(2018, 6, 10);
+    this.START_DEBT = 24000000000000;
+    this.DEBT_PER_DAY = 24000000;
+    this.CITIZENS = 300000000;
+    this.TAXPAYER = 100000000;
+    this.debtPerSecond = this.DEBT_PER_DAY / 24 / 60 / 60;
 
-var debt3 = document.getElementById('debt3')
+    // Line 2
+    this.US_FEDERAL = usFederal;
+    this.FEDERAL_DEBT = 20000;
+    this.FEDERAL_DEBT_DECIMALS = 3;
 
-function getStatus() {
-    data1.filter(function (item) {
-        return Object.keys(item).some(function (key) {
-            let test = item;
-            createListEl(test);
-            return (item[key] === item.id);
-        })
-    })
-};
+    this.US_FEDERAL_BUDGET = usFedBudget;
+    this.FED_BUDGET = 40000;
+    this.FEDERAL_DEBT_BUDGET_DECIMALS = 3;
 
-getStatus();
+    // Line 3 
+    this.US_FEDERAL_ACTUAL = usFederalActual;
+    this.FEDERAL_DEBT_ACTUAL = 3800;
+    this.FEDERAL_DEBT_ACTUAL_DECIMALS = 3;
 
-function createListEl(test) {
-    const items = document.createElement('div');
-    items.textContent = `${test.usDebt}`;
-    items.setAttribute('class', 'l');
-    const layer = document.querySelectorAll('.l');
-    for (i = 0; i < layer.length; i++) {
-        layer[i].id = 'layer' + i
-    }
-    debt3.append(items);
-    changeDebt()
+    this.US_FEDERAL_BUDGET_ACTUAL = usFederalBudgetActual;
+    this.FED_BUDGET_ACTUAL = 7600;
+    this.FEDERAL_DEBT_BUDGET_ACTUAL_DECIMALS = 3;
+
+    this.addCommas = function (str, numberOfDecimals) {
+        str = String(str);
+        let decimals = str.split(".")[1];
+        decimals = decimals ? "," + decimals : "";
+        decimals = decimals.substring(0, numberOfDecimals + 1);
+        str = str.split(".")[0];
+        let rgx = /(\d+)(\d{3})/;
+        while (rgx.test(str)) {
+            str = str.replace(rgx, '$1' + ',' + '$2');
+        }
+        if (numberOfDecimals > 0) {
+            return str + decimals;
+        } else {
+            return str;
+        }
+    };
+
+    this.updateOutput = function (id, value) {
+        let output = document.getElementById(id);
+        if (output != undefined) {
+            output.innerHTML = "$" + value;
+        }
+    };
+
+    this.update = function () {
+        let now = new Date();
+        let difference = now - this.START_DATE;
+        difference /= 1000;
+
+        // Line 1
+        let total = String((difference * this.debtPerSecond));
+        let perCitizen = String(total / this.CITIZENS);
+        let perTaxpayer = String(total / this.TAXPAYER);
+
+        // Line 2
+        let usFederal = String(total / this.FEDERAL_DEBT);
+        let usFedBudget = String(total / this.FED_BUDGET);
+
+        // Line 3
+        let usFederalActual = String(total / this.FEDERAL_DEBT_ACTUAL);
+        let usFederalBudgetActual = String(total / this.FED_BUDGET_ACTUAL);
+
+        // String
+        let str;
+
+        // Line 1
+        str = this.addCommas(total, this.TOTAL_DECIMALS);
+        this.updateOutput(this.TOTAL_DEBT, str);
+
+        str = this.addCommas(perCitizen, this.CITIZEN_DECIMALS)
+        this.updateOutput(this.PER_CITIZEN, str);
+
+        str = this.addCommas(perTaxpayer, this.TAXPAYER_DECIMALS);
+        this.updateOutput(this.PER_TAXPAYER, str);
+        thisObj = this;
+
+        str = this.addCommas(usFederal, this.FEDERAL_DEBT_DECIMALS);
+        this.updateOutput(this.US_FEDERAL, str)
+
+        str = this.addCommas(usFedBudget, this.FEDERAL_DEBT_BUDGET_DECIMALS);
+        this.updateOutput(this.US_FEDERAL_BUDGET, str)
+
+
+        // Line 2
+        str = this.addCommas(usFederal, this.FEDERAL_DEBT_DECIMALS);
+        this.updateOutput(this.US_FEDERAL, str)
+
+        str = this.addCommas(usFedBudget, this.FEDERAL_DEBT_BUDGET_DECIMALS);
+        this.updateOutput(this.US_FEDERAL_BUDGET, str)
+
+
+        // Line 3
+        str = this.addCommas(usFederalActual, this.FEDERAL_DEBT_ACTUAL_DECIMALS);
+        this.updateOutput(this.US_FEDERAL_ACTUAL, str)
+
+        str = this.addCommas(usFederalBudgetActual, this.FEDERAL_DEBT_BUDGET_ACTUAL_DECIMALS);
+        this.updateOutput(this.US_FEDERAL_BUDGET_ACTUAL, str)
+
+        window.setTimeout(function () {
+            thisObj.update();
+        }, this.FPS_DELAY)
+    };
+    this.update();
 }
 
-function changeDebt() {
-    let test1 = debt3.children[0];
-    let test2 = debt3.children[1];
-    if (test1 = test1.textContent) {
-        setDebt(test1);
-    }
-}
 
-function setDebt(test1) {
-    interval = setInterval(function () {
-        test1++;
-        let str_count = test1.toLocaleString("en-US");
-        debt3.children[0].textContent = '$' + str_count;
-    }, 200);
-}
-
-
-const data = [{
-    id: 1,
-    usDebt: 24000000,
-    usDebt1: 12000,
-},
-{
-    id: 2,
-    usDebt: 1500000,
-    usDebt1: 10000,
-},
-{
-    id: 3,
-    usDebt: 7000000000,
-    usDebt1: 8000,
-},
-{
-    id: 4,
-    usDebt: 1300000,
-    usDebt1: 6000,
-},
-{
-    id: 5,
-    usDebt: 1200000,
-    usDebt1: 4000,
-},
-{
-    id: 6,
-    usDebt: 1000000,
-    usDebt1: 2000,
-},
-{
-    id: 7,
-    usDebt: '',
-    usDebt1: '',
-},
-];
-
-var debt1 = document.getElementById('debt1')
-var debt2 = document.getElementById('debt2')
-
-const listDebt = () => {
-    data.forEach((items) => {
-        for (key in items) {
-            if (key == 'usDebt') {
-                const items = document.createElement('div');
-                items.setAttribute('class', 'l');
-                const layer = document.querySelectorAll('.l');
-
-                for (i = 0; i < layer.length; i++) {
-                    layer[i].id = 'layer' + i
-                }
-
-                debt1.append(items)
-                let count1 = debt1.children[0];
-                let count2 = debt1.children[1];
-                let count3 = debt1.children[2];
-                let count4 = debt1.children[3];
-
-                // console.log(count1);
-                if (count1 = 24000000) {
-                    interval = setInterval(function () {
-                        count1++;
-                        let str_count = count1.toLocaleString("en-US");
-                        debt1.children[0].textContent = '$' + str_count;
-                    });
-                }
-                if (count2 = 1500000) {
-                    set = setInterval(function () {
-                        let str_count = count2.toLocaleString("en-US");
-                        debt1.children[1].textContent = '$' + str_count;
-                    })
-                    interval = setInterval(function () {
-                        count2++;
-                        let str_count = count2.toLocaleString("en-US");
-                        debt1.children[1].textContent = '$' + str_count;
-                    }, 1100)
-                }
-                if (count3 = 7000000000) {
-                    set = setInterval(function () {
-                        let str_count = count3.toLocaleString("en-US");
-                        debt1.children[2].textContent = '$' + str_count;
-                    })
-                    interval = setInterval(function () {
-                        count3++;
-                        let str_count = count3.toLocaleString("en-US");
-                        debt1.children[2].textContent = '$' + str_count;
-                    }, 500)
-                }
-                if (count4 = 1300000) {
-                    set = setInterval(function () {
-                        let str_count = count4.toLocaleString("en-US");
-                        debt1.children[3].textContent = '$' + str_count;
-                    })
-                    interval = setInterval(function () {
-                        count4++;
-                        let str_count = count4.toLocaleString("en-US");
-                        debt1.children[3].textContent = '$' + str_count;
-                    }, 200)
-                }
-            } else if (key == 'usDebt1') {
-                const items = document.createElement('div');
-                items.setAttribute('class', 'l');
-                const layer = document.querySelectorAll('.l');
-                for (i = 0; i < layer.length; i++) {
-                    layer[i].id = 'layer' + i
-                }
-                debt2.append(items)
-                let count1 = debt2.children[0];
-                let count2 = debt2.children[1];
-                let count3 = debt2.children[2];
-                // console.log(count2);
-                if (count1 = 12000) {
-                    set = setInterval(function () {
-                        let str_count = count1.toLocaleString("en-US");
-                        debt2.children[0].textContent = '$' + str_count;
-                    })
-                    const str_count = count1.toLocaleString("en-US");
-                    debt2.children[0].textContent = '$' + str_count;
-                    interval = setInterval(function () {
-                        count1++;
-                        const str_count = count1.toLocaleString("en-US");
-                        debt2.children[0].textContent = '$' + str_count;
-                    }, 11000);
-                }
-                if (count2 = 10000) {
-                    set = setInterval(function () {
-                        let str_count = count2.toLocaleString("en-US");
-                        debt2.children[1].textContent = '$' + str_count;
-                    })
-                    interval = setInterval(function () {
-                        count2++;
-                        let str_count = count2.toLocaleString("en-US");
-                        debt2.children[1].textContent = '$' + str_count;
-                    }, 700)
-                }
-                if (count3 = 8000) {
-                    set = setInterval(function () {
-                        let str_count = count3.toLocaleString("en-US");
-                        debt2.children[2].textContent = '$' + str_count;
-                    })
-                    interval = setInterval(function () {
-                        count3++;
-                        let str_count = count3.toLocaleString("en-US");
-                        debt2.children[2].textContent = '$' + str_count;
-                    }, 9000)
-                }
-
-            }
-        };
-    });
-};
-
-listDebt();
-
-const myModal = document.getElementById('myModal');
-const btnComment = document.getElementById('btn-comment');
-
-const sendComment = document.getElementById('sendComment');
-const btnClose = document.getElementById('closeModal');
-const inputComment = document.getElementById('inputComment');
+// Add comment
+const addBtns = document.querySelectorAll('.add-btn:not(.solid)');
+const saveItemBtns = document.querySelectorAll('.solid');
+const addItemContainers = document.querySelectorAll('.add-container');
+const addItems = document.querySelectorAll('.add-item');
+const textComment = document.getElementById('text-comment')
+// Item Lists
+const listColumns = document.querySelectorAll('.drag-item-list');
+const commentlogListEl = document.getElementById('comment-list');
 
 const myForm = document.getElementById('myForm');
 const btnConfirm = document.getElementById('btnConfirm');
+const btnCloseAuth = document.getElementById('closeAuth');
 const btnCloseForm = document.getElementById('closeForm');
-
+const incorrect = document.querySelector('.incorrect');
+const formAuth = document.getElementById('formAuth');
+const fieldEmpty = document.querySelector('.field-empty')
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 
-const fieldEmpty = document.querySelector('.field-empty');
-const incorrect = document.querySelector('.incorrect');
+let updatedOnLoad = false;
+let commentlogListArray = [];
 
-const svgShape = document.getElementById('Shape');
-
-function showBlock() {
-    myModal.classList.add('b-show');
-}
-
-btnComment.addEventListener('click', showBlock);
-
-function changeColor() {
-    var doc = document.getElementById("Shape");
-    var color = ["#f5516f", "#086fc9", "#b816e0", "#08c93f"];
-    doc.style.fill = color[i];
-    i = (i + 1) % color.length;
-    svgShape.classList.add('b-show');
-}
-
-function setColor() {
-    setTimeout(changeColor, 1000);
-}
-
-setInterval(setColor, 800);
-
-function showModal() {
-    myModal.classList.add('b-show');
-    myModal.classList.remove('hide');
-}
-
-function closeModal() {
-    myModal.classList.add('hide');
-    myModal.classList.remove('b-show');
-};
-
-function validField() {
-    if (inputComment.value.trim() !== '') {
-        showForm();
+function getSavedColumns() {
+    if (localStorage.getItem('commentlogItems')) {
+        commentlogListArray = JSON.parse(localStorage.commentlogItems);
     } else {
-        console.log('pusto');
-        fieldEmpty.hidden = false
+        commentlogListArray = [];
     }
 }
 
+function updateSavedColumns() {
+    listArrays = [commentlogListArray];
+    const arrayNames = ['commentlog'];
+    arrayNames.forEach((arrayName, index) => {
+        localStorage.setItem(`${arrayName}Items`, JSON.stringify(listArrays[index]));
+    });
+}
+
+function createItemEl(columnEl, column, item, index) {
+    const listEl = document.createElement('li');
+    listEl.textContent = item;
+    listEl.classList.add('drag-item');
+    columnEl.appendChild(listEl);
+}
+
+function updateDOM() {
+    if (!updatedOnLoad) {
+        getSavedColumns();
+    }
+    commentlogListEl.textContent = '';
+    commentlogListArray.forEach((commentlogItem, index) => {
+        createItemEl(commentlogListEl, 0, commentlogItem, index);
+    });
+    updatedOnLoad = true;
+    updateSavedColumns();
+}
+
+function addToColumn(column) {
+
+    const itemText = addItems[column].textContent;
+    const selectedArray = listArrays[column];
+    selectedArray.push(itemText);
+    addItems[column].textContent = '';
+    updateDOM(column);
+}
+
+function showInputBox() {
+    myForm.classList.add('b-show')
+    myForm.classList.remove('hide')
+}
+
 function closeForm() {
-    myForm.classList.add('hide');
-    myForm.classList.remove('b-show');
+    myForm.classList.remove('b-show')
+    myForm.classList.add('hide')
+}
+
+function closeAuth() {
+    formAuth.classList.add('hide');
+    formAuth.classList.remove('b-show');
 };
 
 function showForm() {
-    myForm.classList.add('b-show');
-    myForm.classList.remove('hide')
+    formAuth.classList.add('b-show');
+    formAuth.classList.remove('hide')
 }
 
 const dataAuth = {
@@ -318,41 +226,41 @@ const dataAuth = {
     password: 123456
 }
 
-function validFieldsAuth() {
+function validFieldsAuth(column) {
     if (email.value === dataAuth.email && password.value == dataAuth.password) {
-        console.log(dataAuth.email);
-        console.log(inputComment.value.trim());
-        savedComment = {
-            login: email.value,
-            password: password.value,
-            comment: inputComment.value.trim()
-        };
-        localStorage.setItem('comment', JSON.stringify(savedComment));
+        addToColumn(column);
         reset();
     } else {
         incorrect.hidden = false;
+        console.log('false');
     }
 }
-
 function reset() {
     myForm.classList.remove('b-show');
-    myModal.classList.remove('b-show');
+    formAuth.classList.remove('b-show');
     incorrect.hidden = true;
     fieldEmpty.hidden = true;
     resetTextarea();
 }
 
-
 function resetTextarea() {
-    document.getElementById('inputComment').value = '';
     document.getElementById('email').value = '';
     document.getElementById('password').value = '';
 }
+function validField(column) {
+    if (addItems[column].textContent.trim() !== '') {
+        showForm()
+    } else {
+        console.log('pusto');
+        fieldEmpty.hidden = false
+    }
+}
 
-btnConfirm.addEventListener('click', validFieldsAuth);
+btnCloseForm.addEventListener('click', closeForm);
+btnCloseAuth.addEventListener('click', closeAuth)
 
-btnComment.addEventListener('click', showModal);
-btnClose.addEventListener('click', closeModal);
+function hideInputBox(column) {
+    validField(column)
+}
+updateDOM();
 
-btnCloseForm.addEventListener('click', closeForm)
-sendComment.addEventListener('click', validField);

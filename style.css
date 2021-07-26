@@ -5,12 +5,14 @@ body {
 
 .table-debt {
   background-image: url(images/DCXS-21-1.jpg);
-  height: 2300px;
+  height: 2050px;
   width: 3000px;
   background-repeat: no-repeat;
   position: relative;
 }
-
+li {
+  list-style: none;
+}
 #debt1 {
   position: absolute;
   font-size: 70px;
@@ -31,23 +33,47 @@ body {
   position: absolute;
 }
 
-#layer1 {
+#perCitizen {
   position: absolute;
-  top: 138px;
-  left: 29px;
-}
-
-#layer2 {
-  position: absolute;
-  top: 263px;
-  left: 53px;
+  left: 545px;
+  top: 19px;
   font-size: 50px;
 }
 
-#layer3 {
+#perTaxpayer {
   position: absolute;
+  top: 18px;
+  left: 759px;
+  font-size: 50px;
+}
+
+#usFederal {
+  position: absolute;
+  top: 136px;
+  left: 17px;
+  font-size: 60px;
+}
+
+#usFederalBudget {
+  position: absolute;
+  left: 489px;
+  top: 136px;
+  font-size: 60px;
+}
+
+/* Line 3 */
+
+#usFederalActual {
+  position: absolute;
+  top: 260px;
+  left: 54px;
+  font-size: 50px;
+}
+
+#usFederalBudgetActual {
+  position: absolute;
+  left: 500px;
   top: 263px;
-  left: 506px;
   font-size: 50px;
 }
 
@@ -129,27 +155,6 @@ body {
   cursor: pointer;
 }
 
-.incorrect {
-  color: red;
-}
-
-.field-empty {
-  color: red;
-}
-
-.body-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.hide {
-  display: none;
-}
-
-.show {
-  display: block;
-}
-
 .modal {
   position: relative;
   background: none !important;
@@ -158,28 +163,191 @@ body {
 .form-auth {
   position: absolute;
   top: 75px;
+  height: 300px;
+  overflow: hidden;
 }
+
+.content {
+  font-size: 70px;
+}
+
 #inputComment {
   width: 100%;
 }
 .changeColor {
-  fill:'black';
+  fill: "black";
   height: 120px;
   width: 120px;
-  -webkit-transition: width 2s, height 2s, background-color 2s, -webkit-transform 2s;
+  -webkit-transition: width 2s, height 2s, background-color 2s,
+    -webkit-transform 2s;
   transition: width 2s, height 2s, background-color 2s, transform 2s;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
 }
-.color{
+.color {
   color: rgba(216, 59, 59, 0.925);
 }
 .block {
   display: none;
 }
 
+.body-form {
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.hide {
+  display: none;
+}
+
+.modal-comment {
+  position: absolute;
+}
+:root {
+  --column-1: #a2622d;
+  --column-2: #1b6161;
+  --column-3: #248224;
+  --column-4: #a22d22;
+}
+
+h1 {
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 5px black;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.drag-container {
+  margin: 20px;
+}
+
+.drag-list {
+  display: flex;
+  align-items: flex-start;
+  max-width: 700px;
+}
+
+/* Columns */
+.drag-column {
+  flex: 1;
+  margin: 0 10px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+.custom-scroll {
+  overflow-y: auto;
+  max-height: 75vh;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-right: 5px;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.header h1 {
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.drag-item-list {
+  min-height: 50px;
+}
+
+.drag-item {
+  margin: 10px;
+  padding: 10px;
+  height: fit-content;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  line-height: 1.5rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Add Button Group */
+.add-btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-btn {
+  justify-content: flex-end;
+  text-align: end;
+}
+
+.btn-send {
+  width: 150px;
+  background-color: #000;
+  border-radius: 10px;
+  color: #fff;
+  padding: 5px 20px 5px 20px;
+  cursor: pointer;
+}
+.solid:hover {
+  transition: unset;
+  filter: brightness(95%);
+  color: white;
+}
+
+.add-item {
+  width: 100%;
+  min-height: 100px;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+  margin: 5px auto;
+  resize: none;
+  color: black;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.add-item:focus {
+  outline: none;
+}
+
+.incorrect {
+  color: red;
+}
+
+.field-empty {
+  color: red;
+}
+
+.show {
+  display: block;
+}
 .b-show {
   display: block;
-  animation: showBlock .5s linear forwards;
+  animation: showBlock 0.5s linear forwards;
 }
 
 @keyframes showBlock {
