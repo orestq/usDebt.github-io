@@ -1,7 +1,7 @@
 (function () {
     const clock = new debtClock
         (
-            "natDebt", "perCitizen", "perTaxpayer",
+            "totalDebt", "perCitizen", "perTaxpayer",
             "usFederal", "usFederalBudget",
             "usFederalActual", "usFederalBudgetActual",
             30
@@ -16,6 +16,7 @@ function debtClock
         usFederalActual, usFederalBudgetActual,
         fps
     ) {
+    // Line 1
     this.TOTAL_DEBT = totalDebt;
     this.PER_CITIZEN = perCitizen;
     this.PER_TAXPAYER = perTaxpayer;
@@ -78,17 +79,17 @@ function debtClock
         difference /= 1000;
 
         // Line 1
-        let total = String((difference * this.debtPerSecond));
-        let perCitizen = String(total / this.CITIZENS);
-        let perTaxpayer = String(total / this.TAXPAYER);
+        let total = ((difference * this.debtPerSecond));
+        let perCitizen = (total / this.CITIZENS);
+        let perTaxpayer = (total / this.TAXPAYER);
 
         // Line 2
-        let usFederal = String(total / this.FEDERAL_DEBT);
-        let usFedBudget = String(total / this.FED_BUDGET);
+        let usFederal = (total / this.FEDERAL_DEBT);
+        let usFedBudget = (total / this.FED_BUDGET);
 
         // Line 3
-        let usFederalActual = String(total / this.FEDERAL_DEBT_ACTUAL);
-        let usFederalBudgetActual = String(total / this.FED_BUDGET_ACTUAL);
+        let usFederalActual = (total / this.FEDERAL_DEBT_ACTUAL);
+        let usFederalBudgetActual = (total / this.FED_BUDGET_ACTUAL);
 
         // String
         let str;
